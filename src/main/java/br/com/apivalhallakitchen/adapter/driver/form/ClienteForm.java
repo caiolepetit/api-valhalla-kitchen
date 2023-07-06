@@ -1,8 +1,8 @@
 package br.com.apivalhallakitchen.adapter.driver.form;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class ClienteForm {
     private String cpf;
     private String email;

@@ -12,4 +12,8 @@ public class ProdutoDTO {
     private String nome;
     private BigDecimal preco;
     private String descricao;
+    private String categoria;
+
+    @Builder.Default
+    private String status = "A";
 }
