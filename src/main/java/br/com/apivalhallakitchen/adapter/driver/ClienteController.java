@@ -32,8 +32,11 @@ public class ClienteController {
 
     @GetMapping("/{cpf}")
     public ResponseEntity<ClienteDTO> buscaClientePorCpf(@PathVariable Long cpf) {
-        ClienteDTO cliente01 = clienteService.buscaClienteCpf(cpf);
-        return ResponseEntity.ok(cliente01);
+        ClienteDTO clienteDTO = clienteService.buscaClienteCpf(cpf);
+        if (clienteDTO == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(clienteDTO);
     }
 
     @PostMapping

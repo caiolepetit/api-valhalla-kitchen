@@ -1,9 +1,8 @@
 package br.com.apivalhallakitchen.core.applications.services;
 
-import br.com.apivalhallakitchen.adapter.driver.mappers.ClienteMappers;
+import br.com.apivalhallakitchen.adapter.driver.mappers.ClienteMapper;
 import br.com.apivalhallakitchen.core.domain.ClienteEntity;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.apivalhallakitchen.adapter.driver.dto.ClienteDTO;
@@ -18,18 +17,18 @@ import java.util.List;
 public class ClienteService {
 
     private ClienteRepository clienteRepository;
-    private ClienteMappers clienteMappers;
+    private ClienteMapper clienteMapper;
     
     public List<ClienteDTO> buscaTodosClientes(){
         List<ClienteDTO> clientesDTO = new ArrayList<>();
         for (ClienteEntity cliente : clienteRepository.findAll()) {
-            clientesDTO.add(clienteMappers.clienteEntityToDto(cliente));
+            clientesDTO.add(clienteMapper.clienteEntityToDto(cliente));
         }
         return clientesDTO;
     }
 
     public ClienteDTO buscaClienteCpf(Long cpf){
-        return ClienteDTO.builder().cpf("111111111111").email("odin@teste.com").build();
+        return clienteRepository.findById(cpf).map(entity -> clienteMapper.clienteEntityToDto(entity)).orElse(null);
     }
 
     public ClienteDTO criarCliente(ClienteForm clienteForm){
