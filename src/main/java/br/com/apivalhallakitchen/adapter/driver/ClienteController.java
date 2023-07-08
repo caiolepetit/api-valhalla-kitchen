@@ -2,8 +2,9 @@ package br.com.apivalhallakitchen.adapter.driver;
 
 import br.com.apivalhallakitchen.adapter.driver.dto.ClienteDTO;
 import br.com.apivalhallakitchen.adapter.driver.form.ClienteForm;
-import br.com.apivalhallakitchen.core.domain.Service.ClienteService;
+import br.com.apivalhallakitchen.core.applications.services.ClienteService;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,19 +20,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/clientes")
+@RequiredArgsConstructor
 public class ClienteController {
 
-    @Autowired
-    ClienteService clienteService;
+    private ClienteService clienteService;
 
     @GetMapping
     public ResponseEntity<List<ClienteDTO>> listaTodosClientes() {
-        ClienteDTO cliente01 = clienteService.buscaTodosClientes();
-        return ResponseEntity.ok(Collections.singletonList(cliente01));
+        return ResponseEntity.ok(clienteService.buscaTodosClientes());
     }
 
     @GetMapping("/{cpf}")
-    public ResponseEntity<ClienteDTO> buscaClientePorCpf(@PathVariable String cpf) {
+    public ResponseEntity<ClienteDTO> buscaClientePorCpf(@PathVariable Long cpf) {
         ClienteDTO cliente01 = clienteService.buscaClienteCpf(cpf);
         return ResponseEntity.ok(cliente01);
     }

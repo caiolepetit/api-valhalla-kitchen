@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class ClienteDTO {
 
-    private String cpf;
+    private Long cpf;
     private String email;
 
 }
