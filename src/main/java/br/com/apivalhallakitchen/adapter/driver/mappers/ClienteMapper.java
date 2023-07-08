@@ -5,7 +5,7 @@ import br.com.apivalhallakitchen.adapter.driver.form.ClienteForm;
 import br.com.apivalhallakitchen.core.domain.ClienteEntity;
 
 public interface ClienteMapper {
-    ClienteDTO clienteFormToDto(ClienteForm clienteForm);
+    ClienteEntity clienteFormToEntity(ClienteForm clienteForm);
 
     ClienteDTO clienteEntityToDto(ClienteEntity clienteEntity);
 

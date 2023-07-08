@@ -3,9 +3,7 @@ package br.com.apivalhallakitchen.adapter.driver;
 import br.com.apivalhallakitchen.adapter.driver.dto.ClienteDTO;
 import br.com.apivalhallakitchen.adapter.driver.form.ClienteForm;
 import br.com.apivalhallakitchen.core.applications.services.ClienteService;
-
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -41,8 +38,11 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity<String> criaCliente(@RequestBody ClienteForm clienteForm, UriComponentsBuilder uriBuilder) {
-        ClienteDTO cliente01 = clienteService.criarCliente(clienteForm);
-        String novaUri = uriBuilder.path("/{id}").buildAndExpand(cliente01.getCpf()).toUriString();
+        ClienteDTO clienteDTO = clienteService.criarCliente(clienteForm);
+        if(clienteDTO == null) {
+            return ResponseEntity.internalServerError().body("Não foi possível incluir o cliente");
+        }
+        String novaUri = uriBuilder.path("/{id}").buildAndExpand(clienteDTO.getCpf()).toUriString();
         return ResponseEntity.created(UriComponentsBuilder.fromUriString(novaUri).build().toUri())
                               .body("Usuário criado com sucesso!");
     }

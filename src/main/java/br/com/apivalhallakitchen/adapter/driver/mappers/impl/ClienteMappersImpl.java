@@ -7,8 +7,8 @@ import br.com.apivalhallakitchen.core.domain.ClienteEntity;
 
 public class ClienteMappersImpl implements ClienteMapper {
     @Override
-    public ClienteDTO clienteFormToDto(ClienteForm clienteForm) {
-        return ClienteDTO.builder().cpf(clienteForm.getCpf()).email(clienteForm.getEmail()).build();
+    public ClienteEntity clienteFormToEntity(ClienteForm clienteForm) {
+        return ClienteEntity.builder().cpf(clienteForm.getCpf()).email(clienteForm.getEmail()).build();
     }
 
     @Override

@@ -32,10 +32,13 @@ public class ClienteService {
     }
 
     public ClienteDTO criarCliente(ClienteForm clienteForm){
-        return ClienteDTO.builder()
-                            .cpf(clienteForm.getCpf())
-                            .email(clienteForm.getEmail())
-                            .build();
+        try {
+            ClienteEntity clienteEntitySaved = clienteRepository.save(clienteMapper.clienteFormToEntity(clienteForm));
+
+            return clienteMapper.clienteEntityToDto(clienteEntitySaved);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }
