@@ -13,29 +13,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class ClienteService {
 
     private ClienteRepository clienteRepository;
-    private ClienteMapper clienteMapper;
-    
+    public ClienteService(ClienteRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
+    }
+
     public List<ClienteDTO> buscaTodosClientes(){
         List<ClienteDTO> clientesDTO = new ArrayList<>();
         for (ClienteEntity cliente : clienteRepository.findAll()) {
-            clientesDTO.add(clienteMapper.clienteEntityToDto(cliente));
+            clientesDTO.add(ClienteMapper.clienteEntityToDto(cliente));
         }
         return clientesDTO;
     }
 
     public ClienteDTO buscaClienteCpf(Long cpf){
-        return clienteRepository.findById(cpf).map(entity -> clienteMapper.clienteEntityToDto(entity)).orElse(null);
+        return clienteRepository.findById(cpf).map(ClienteMapper::clienteEntityToDto).orElse(null);
     }
 
     public ClienteDTO criarCliente(ClienteForm clienteForm){
         try {
-            ClienteEntity clienteEntitySaved = clienteRepository.save(clienteMapper.clienteFormToEntity(clienteForm));
+            ClienteEntity clienteEntitySaved = clienteRepository.save(ClienteMapper.clienteFormToEntity(clienteForm));
 
-            return clienteMapper.clienteEntityToDto(clienteEntitySaved);
+            return ClienteMapper.clienteEntityToDto(clienteEntitySaved);
         } catch (Exception e) {
             return null;
         }

@@ -3,7 +3,6 @@ package br.com.apivalhallakitchen.adapter.driver;
 import br.com.apivalhallakitchen.adapter.driver.dto.ClienteDTO;
 import br.com.apivalhallakitchen.adapter.driver.form.ClienteForm;
 import br.com.apivalhallakitchen.core.applications.services.ClienteService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,10 +16,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/clientes")
-@RequiredArgsConstructor
 public class ClienteController {
 
     private ClienteService clienteService;
+
+    public ClienteController(ClienteService clienteService) {
+        this.clienteService = clienteService;
+    }
 
     @GetMapping
     public ResponseEntity<List<ClienteDTO>> listaTodosClientes() {
