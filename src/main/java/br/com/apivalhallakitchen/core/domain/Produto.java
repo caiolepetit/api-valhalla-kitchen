@@ -1,4 +1,4 @@
-package br.com.apivalhallakitchen.adapter.driver.dto;
+package br.com.apivalhallakitchen.core.domain;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
-public class ProdutoDTO {
+public class Produto {
     private Long id;
     private String nome;
     private BigDecimal preco;

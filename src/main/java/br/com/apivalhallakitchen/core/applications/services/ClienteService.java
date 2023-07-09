@@ -1,8 +1,8 @@
 package br.com.apivalhallakitchen.core.applications.services;
 
-import br.com.apivalhallakitchen.adapter.driver.dto.ClienteDTO;
+import br.com.apivalhallakitchen.core.domain.Cliente;
 import br.com.apivalhallakitchen.adapter.driver.form.ClienteForm;
-import br.com.apivalhallakitchen.adapter.driver.mappers.ClienteMapper;
+import br.com.apivalhallakitchen.adapter.utils.mappers.ClienteMapper;
 import br.com.apivalhallakitchen.core.applications.ports.ClienteRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,16 +17,16 @@ public class ClienteService {
         this.clienteRepository = clienteRepository;
     }
 
-    public List<ClienteDTO> buscaTodosClientes(){
+    public List<Cliente> buscaTodosClientes(){
         return clienteRepository.buscarTodosClientes();
     }
 
-    public Optional<ClienteDTO> buscaClienteCpf(Long cpf){
+    public Optional<Cliente> buscaClienteCpf(Long cpf){
         return clienteRepository.buscarClientePorCpf(cpf);
     }
 
-    public ClienteDTO criarCliente(ClienteForm clienteForm){
-        return clienteRepository.criarCliente(ClienteMapper.clienteFormToDto(clienteForm));
+    public Cliente criarCliente(ClienteForm clienteForm){
+        return clienteRepository.criarCliente(ClienteMapper.clienteFormToCliente(clienteForm));
     }
 
 }

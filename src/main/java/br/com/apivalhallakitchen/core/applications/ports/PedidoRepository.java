@@ -1,6 +1,6 @@
 package br.com.apivalhallakitchen.core.applications.ports;
 
-import br.com.apivalhallakitchen.core.domain.PedidoEntity;
+import br.com.apivalhallakitchen.adapter.driven.infra.entity.PedidoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

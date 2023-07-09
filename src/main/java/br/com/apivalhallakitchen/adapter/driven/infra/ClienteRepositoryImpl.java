@@ -1,10 +1,10 @@
 package br.com.apivalhallakitchen.adapter.driven.infra;
 
+import br.com.apivalhallakitchen.adapter.driven.infra.entity.ClienteEntity;
 import br.com.apivalhallakitchen.adapter.driven.infra.jpa.ClienteRepositoryJpa;
-import br.com.apivalhallakitchen.adapter.driver.dto.ClienteDTO;
-import br.com.apivalhallakitchen.adapter.driver.mappers.ClienteMapper;
+import br.com.apivalhallakitchen.core.domain.Cliente;
+import br.com.apivalhallakitchen.adapter.utils.mappers.ClienteMapper;
 import br.com.apivalhallakitchen.core.applications.ports.ClienteRepository;
-import br.com.apivalhallakitchen.core.domain.ClienteEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -20,22 +20,22 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     }
 
     @Override
-    public Optional<ClienteDTO> buscarClientePorCpf(Long cpf) {
-        return clienteRepositoryJpa.findById(cpf).map(ClienteMapper::clienteEntityToDto);
+    public Optional<Cliente> buscarClientePorCpf(Long cpf) {
+        return clienteRepositoryJpa.findById(cpf).map(ClienteMapper::clienteEntityToCliente);
     }
 
     @Override
-    public List<ClienteDTO> buscarTodosClientes() {
-        List<ClienteDTO> clientesDTO = new ArrayList<>();
+    public List<Cliente> buscarTodosClientes() {
+        List<Cliente> clientesDTO = new ArrayList<>();
         for (ClienteEntity cliente : clienteRepositoryJpa.findAll()) {
-            clientesDTO.add(ClienteMapper.clienteEntityToDto(cliente));
+            clientesDTO.add(ClienteMapper.clienteEntityToCliente(cliente));
         }
         return clientesDTO;
     }
 
     @Override
-    public ClienteDTO criarCliente(ClienteDTO clienteDTO) {
-        ClienteEntity clienteEntity = clienteRepositoryJpa.save(ClienteMapper.clienteDtoToEntity(clienteDTO));
-        return ClienteMapper.clienteEntityToDto(clienteEntity);
+    public Cliente criarCliente(Cliente cliente) {
+        ClienteEntity clienteEntity = clienteRepositoryJpa.save(ClienteMapper.clienteToEntity(cliente));
+        return ClienteMapper.clienteEntityToCliente(clienteEntity);
     }
 }

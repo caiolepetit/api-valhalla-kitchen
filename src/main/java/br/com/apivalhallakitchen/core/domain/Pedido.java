@@ -1,4 +1,4 @@
-package br.com.apivalhallakitchen.adapter.driver.dto;
+package br.com.apivalhallakitchen.core.domain;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,8 +7,8 @@ import java.util.List;
 
 @Data
 @Builder
-public class PedidoDTO {
+public class Pedido {
     private Long id;
     private String nomeCliente;
-    private List<ProdutoDTO> produtos;
+    private List<Produto> produtos;
 }

@@ -1,6 +1,6 @@
 package br.com.apivalhallakitchen.adapter.driver;
 
-import br.com.apivalhallakitchen.adapter.driver.dto.PedidoDTO;
+import br.com.apivalhallakitchen.core.domain.Pedido;
 import br.com.apivalhallakitchen.adapter.driver.form.PedidoForm;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,17 +18,17 @@ import java.util.List;
 public class PedidoController {
 
     @GetMapping
-    public ResponseEntity<List<PedidoDTO>> buscarTodosPedidos() {
-        PedidoDTO pedidoDTO = PedidoDTO.builder().id(1L).nomeCliente("Caio").build();
+    public ResponseEntity<List<Pedido>> buscarTodosPedidos() {
+        Pedido pedido = Pedido.builder().id(1L).nomeCliente("Caio").build();
 
-        return ResponseEntity.ok(Collections.singletonList(pedidoDTO));
+        return ResponseEntity.ok(Collections.singletonList(pedido));
     }
 
     @PostMapping
     public ResponseEntity<String> criarPedido(@RequestBody PedidoForm pedidoForm, UriComponentsBuilder uriBuilder) {
-        PedidoDTO pedidoDTO = PedidoDTO.builder().id(1L).build();
+        Pedido pedido = Pedido.builder().id(1L).build();
 
-        String novaUri = uriBuilder.path("/{id}").buildAndExpand(pedidoDTO.getId()).toUriString();
+        String novaUri = uriBuilder.path("/{id}").buildAndExpand(pedido.getId()).toUriString();
 
         return ResponseEntity.created(UriComponentsBuilder.fromUriString(novaUri).build().toUri())
                 .body("Pedito criado com sucesso!");

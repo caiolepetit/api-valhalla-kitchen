@@ -1,4 +1,4 @@
-package br.com.apivalhallakitchen.core.domain;
+package br.com.apivalhallakitchen.adapter.driven.infra.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

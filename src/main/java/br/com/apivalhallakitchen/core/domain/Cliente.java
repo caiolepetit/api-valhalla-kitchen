@@ -1,11 +1,11 @@
-package br.com.apivalhallakitchen.adapter.driver.dto;
+package br.com.apivalhallakitchen.core.domain;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class ClienteDTO {
+public class Cliente {
 
     private Long cpf;
     private String email;

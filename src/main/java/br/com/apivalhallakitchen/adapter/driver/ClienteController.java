@@ -1,6 +1,6 @@
 package br.com.apivalhallakitchen.adapter.driver;
 
-import br.com.apivalhallakitchen.adapter.driver.dto.ClienteDTO;
+import br.com.apivalhallakitchen.core.domain.Cliente;
 import br.com.apivalhallakitchen.adapter.driver.form.ClienteForm;
 import br.com.apivalhallakitchen.core.applications.services.ClienteService;
 import org.springframework.http.ResponseEntity;
@@ -25,23 +25,19 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClienteDTO>> listaTodosClientes() {
-        List<ClienteDTO> clienteDTOS = clienteService.buscaTodosClientes();
-        if(clienteDTOS.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(clienteDTOS);
+    public ResponseEntity<List<Cliente>> listaTodosClientes() {
+        return ResponseEntity.ok(clienteService.buscaTodosClientes());
     }
 
     @GetMapping("/{cpf}")
-    public ResponseEntity<ClienteDTO> buscaClientePorCpf(@PathVariable Long cpf) {
+    public ResponseEntity<Cliente> buscaClientePorCpf(@PathVariable Long cpf) {
         return clienteService.buscaClienteCpf(cpf).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ResponseEntity<String> criaCliente(@RequestBody ClienteForm clienteForm, UriComponentsBuilder uriBuilder) {
-        ClienteDTO clienteDTO = clienteService.criarCliente(clienteForm);
-        String novaUri = uriBuilder.path("/{id}").buildAndExpand(clienteDTO.getCpf()).toUriString();
+        Cliente cliente = clienteService.criarCliente(clienteForm);
+        String novaUri = uriBuilder.path("/{id}").buildAndExpand(cliente.getCpf()).toUriString();
         return ResponseEntity.created(UriComponentsBuilder.fromUriString(novaUri).build().toUri())
                               .body("Usuário criado com sucesso!");
     }
