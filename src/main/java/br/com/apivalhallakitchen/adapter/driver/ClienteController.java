@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/v1/clientes")
 public class ClienteController {
 
-    private ClienteService clienteService;
+    private final ClienteService clienteService;
 
     public ClienteController(ClienteService clienteService) {
         this.clienteService = clienteService;
@@ -26,24 +26,21 @@ public class ClienteController {
 
     @GetMapping
     public ResponseEntity<List<ClienteDTO>> listaTodosClientes() {
-        return ResponseEntity.ok(clienteService.buscaTodosClientes());
+        List<ClienteDTO> clienteDTOS = clienteService.buscaTodosClientes();
+        if(clienteDTOS.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(clienteDTOS);
     }
 
     @GetMapping("/{cpf}")
     public ResponseEntity<ClienteDTO> buscaClientePorCpf(@PathVariable Long cpf) {
-        ClienteDTO clienteDTO = clienteService.buscaClienteCpf(cpf);
-        if (clienteDTO == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(clienteDTO);
+        return clienteService.buscaClienteCpf(cpf).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ResponseEntity<String> criaCliente(@RequestBody ClienteForm clienteForm, UriComponentsBuilder uriBuilder) {
         ClienteDTO clienteDTO = clienteService.criarCliente(clienteForm);
-        if(clienteDTO == null) {
-            return ResponseEntity.internalServerError().body("Não foi possível incluir o cliente");
-        }
         String novaUri = uriBuilder.path("/{id}").buildAndExpand(clienteDTO.getCpf()).toUriString();
         return ResponseEntity.created(UriComponentsBuilder.fromUriString(novaUri).build().toUri())
                               .body("Usuário criado com sucesso!");
