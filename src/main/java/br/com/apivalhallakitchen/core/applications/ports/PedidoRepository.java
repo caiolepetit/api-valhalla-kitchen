@@ -1,9 +1,14 @@
 package br.com.apivalhallakitchen.core.applications.ports;
 
-import br.com.apivalhallakitchen.adapter.driven.infra.entity.PedidoEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import br.com.apivalhallakitchen.core.domain.Pedido;
 
-@Repository
-public interface PedidoRepository extends JpaRepository<PedidoEntity, Long> {
+import java.util.List;
+import java.util.Optional;
+
+public interface PedidoRepository {
+    List<Pedido> buscarTodosPedidos();
+
+    Optional<Pedido> buscarPedidoPorId(Long id);
+
+    Pedido salvarPedido(Pedido pedido);
 }

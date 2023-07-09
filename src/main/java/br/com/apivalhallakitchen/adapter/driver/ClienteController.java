@@ -39,7 +39,7 @@ public class ClienteController {
         Cliente cliente = clienteService.criarCliente(clienteForm);
         String novaUri = uriBuilder.path("/{id}").buildAndExpand(cliente.getCpf()).toUriString();
         return ResponseEntity.created(UriComponentsBuilder.fromUriString(novaUri).build().toUri())
-                              .body("Usuário criado com sucesso!");
+                              .body("Cliente criado com sucesso!");
     }
 
 }

@@ -9,4 +9,5 @@ import java.util.List;
 public class PedidoForm {
     @JsonProperty(value = "combo")
     private List<ComboForm> combosForm;
+    private Long clienteId;
 }

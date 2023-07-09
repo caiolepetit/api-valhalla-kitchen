@@ -1,37 +1,53 @@
 package br.com.apivalhallakitchen.adapter.driver;
 
-import br.com.apivalhallakitchen.core.domain.Pedido;
 import br.com.apivalhallakitchen.adapter.driver.form.PedidoForm;
+import br.com.apivalhallakitchen.core.applications.services.PedidoService;
+import br.com.apivalhallakitchen.core.domain.Pedido;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Collections;
 import java.util.List;
 
 @RestController
 @RequestMapping("/v1/pedidos")
 public class PedidoController {
 
+    private final PedidoService pedidoService;
+
+    public PedidoController(PedidoService pedidoService) {
+        this.pedidoService = pedidoService;
+    }
+
     @GetMapping
     public ResponseEntity<List<Pedido>> buscarTodosPedidos() {
-        Pedido pedido = Pedido.builder().id(1L).nomeCliente("Caio").build();
+        return ResponseEntity.ok(pedidoService.buscarTodosPedidos());
+    }
 
-        return ResponseEntity.ok(Collections.singletonList(pedido));
+    @GetMapping("/{id}")
+    public ResponseEntity<Pedido> buscarPedidoPorId(@PathVariable Long id) {
+        return pedidoService.buscarPedidoPorId(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ResponseEntity<String> criarPedido(@RequestBody PedidoForm pedidoForm, UriComponentsBuilder uriBuilder) {
-        Pedido pedido = Pedido.builder().id(1L).build();
+        Pedido pedido = pedidoService.criarPedido(pedidoForm);
 
         String novaUri = uriBuilder.path("/{id}").buildAndExpand(pedido.getId()).toUriString();
 
         return ResponseEntity.created(UriComponentsBuilder.fromUriString(novaUri).build().toUri())
                 .body("Pedito criado com sucesso!");
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Pedido> alterarStatusPedido(@PathVariable Long id) {
+        return pedidoService.alterarStatusPedido(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 }

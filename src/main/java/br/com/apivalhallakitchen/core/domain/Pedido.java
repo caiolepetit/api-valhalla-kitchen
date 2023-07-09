@@ -9,6 +9,9 @@ import java.util.List;
 @Builder
 public class Pedido {
     private Long id;
-    private String nomeCliente;
+    private Long clienteId;
+
+    @Builder.Default
+    private String status = "Novo";
     private List<Produto> produtos;
 }
