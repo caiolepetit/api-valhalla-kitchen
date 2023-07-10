@@ -6,9 +6,14 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: testeFiapNaoFacaIssoEmPrd
+      MYSQL_DATABASE: valhalla_kitchen
+      MYSQL_USER: fiapuser
+      MYSQL_PASSWORD: testeFiapNaoFacaIssoEmPrd
   api:
     build: .
     ports:
       - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prd
     depends_on:
       - database
