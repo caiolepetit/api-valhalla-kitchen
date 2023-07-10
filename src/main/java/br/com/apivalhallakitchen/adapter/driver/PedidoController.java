@@ -42,7 +42,7 @@ public class PedidoController {
         String novaUri = uriBuilder.path("/{id}").buildAndExpand(pedido.getId()).toUriString();
 
         return ResponseEntity.created(UriComponentsBuilder.fromUriString(novaUri).build().toUri())
-                .body("Pedito criado com sucesso!");
+                .body("Pedido criado com sucesso!");
     }
 
     @PatchMapping("/{id}")

@@ -13,5 +13,5 @@ public class Pedido {
 
     @Builder.Default
     private String status = "Novo";
-    private List<Produto> produtos;
+    private List<Long> produtos;
 }

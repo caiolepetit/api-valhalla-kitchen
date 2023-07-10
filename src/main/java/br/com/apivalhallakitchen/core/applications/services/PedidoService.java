@@ -4,22 +4,25 @@ import br.com.apivalhallakitchen.adapter.driver.form.PedidoForm;
 import br.com.apivalhallakitchen.adapter.utils.mappers.PedidoMapper;
 import br.com.apivalhallakitchen.core.applications.ports.PedidoRepository;
 import br.com.apivalhallakitchen.core.domain.Pedido;
-import io.micrometer.observation.ObservationFilter;
+import br.com.apivalhallakitchen.core.domain.Produto;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PedidoService {
 
-    private PedidoRepository pedidoRepository;
+    private final PedidoRepository pedidoRepository;
 
-    public PedidoService(PedidoRepository pedidoRepository) {
+    private final ProdutoService produtoService;
+
+    public PedidoService(PedidoRepository pedidoRepository, ProdutoService produtoService) {
         this.pedidoRepository = pedidoRepository;
+        this.produtoService = produtoService;
     }
 
     public List<Pedido> buscarTodosPedidos() {
@@ -31,7 +34,7 @@ public class PedidoService {
     }
 
     public Pedido criarPedido(PedidoForm pedidoForm) {
-        return pedidoRepository.salvarPedido(PedidoMapper.pedidoFormToPedido(pedidoForm));
+       return pedidoRepository.salvarPedido(PedidoMapper.pedidoFormToPedido(pedidoForm));
     }
 
     public Optional<Pedido> alterarStatusPedido(Long id) {

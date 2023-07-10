@@ -1,10 +1,13 @@
 package br.com.apivalhallakitchen.adapter.driven.infra;
 
 import br.com.apivalhallakitchen.adapter.driven.infra.entity.PedidoEntity;
+import br.com.apivalhallakitchen.adapter.driven.infra.entity.ProdutoEntity;
 import br.com.apivalhallakitchen.adapter.driven.infra.jpa.PedidoRepositoryJpa;
 import br.com.apivalhallakitchen.adapter.utils.mappers.PedidoMapper;
+import br.com.apivalhallakitchen.adapter.utils.mappers.ProdutoMapper;
 import br.com.apivalhallakitchen.core.applications.ports.PedidoRepository;
 import br.com.apivalhallakitchen.core.domain.Pedido;
+import br.com.apivalhallakitchen.core.domain.Produto;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
