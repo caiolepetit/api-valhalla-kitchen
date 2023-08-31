@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-valhalla-kitchen-deployment
+spec:
+  selector:
+    matchLabels:
+      app: mysql-valhalla-kitchen
+  template:
+    metadata:
+      labels:
+        app: mysql-valhalla-kitchen
+    spec:
+      containers:
+        - name: mysql-valhalla-kitchen-container
+          image: mysql:latest
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+          resources:
+            requests:
+              memory: 300Mi
+              cpu: 700m
+            limits:
+              memory: 500Mi
+              cpu: 900m
+          env:
+            - name: MYSQL_DATABASE
+              value: valhalla_kitchen
+            - name: MYSQL_ALLOW_EMPTY_PASSWORD
+              value: 'TRUE'
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-valhalla-kitchen-secrets
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-valhalla-kitchen-secrets
+                  key: MYSQL_USER      
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-valhalla-kitchen-secrets
+                  key: MYSQL_PASSWORD
