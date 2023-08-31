@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-valhalla-kitchen-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api-valhalla-kitchen
+  template:
+    metadata:
+      labels:
+        app: api-valhalla-kitchen
+    spec:
+      containers:
+        - name: api-valhalla-kitchen-container
+          image: image:latest
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: 120Mi
+              cpu: 300m
+            limits:
+              memory: 200Mi
+              cpu: 750m
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prd
