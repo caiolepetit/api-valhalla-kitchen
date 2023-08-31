@@ -2,18 +2,19 @@ version: '3.1'
 services:
   database:
     image: mysql
-    command: --default-authentication-plugin=mysql_native_password
     restart: always
+    ports:
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: testeFiapNaoFacaIssoEmPrd
       MYSQL_DATABASE: valhalla_kitchen
       MYSQL_USER: fiapuser
       MYSQL_PASSWORD: testeFiapNaoFacaIssoEmPrd
+    volumes:
+      - ./docker/01-create_db.sql:/docker-entrypoint-initdb.d/01-create_db.sql
   api:
-    build: .
+    build: ./docker
     ports:
       - "8080:8080"
-    environment:
-      - SPRING_PROFILES_ACTIVE=prd
     depends_on:
       - database
