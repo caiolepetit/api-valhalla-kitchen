@@ -7,6 +7,7 @@ spec:
     app: api-valhalla-kitchen
   ports:
     - protocol: TCP
-      port: 8080  # Port your application listens on
-      targetPort: 80
+      port: 8080
+      targetPort: 8080
+      nodePort: 30007
   type: LoadBalancer

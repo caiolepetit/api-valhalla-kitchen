@@ -14,9 +14,14 @@ spec:
     spec:
       containers:
         - name: api-valhalla-kitchen-container
-          image: image:latest
+          image: renanfee/api-valhalla-kitchen
           ports:
             - containerPort: 8080
+          env:
+            - name: MYSQL_HOST
+              value: mysql-valhalla-kitchen
+            - name: MYSQL_PORT
+              value: '3306'
           resources:
             requests:
               memory: 120Mi
@@ -24,6 +29,3 @@ spec:
             limits:
               memory: 200Mi
               cpu: 750m
-          env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: prd
