@@ -3,9 +3,9 @@ server:
     context-path: "/api"
 spring:
   datasource:
-    url: jdbc:postgresql://database:5432/valhalla_kitchen
-    username: postgres
-    password: testeFiapNaoFacaIssoEmPrd
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:valhalla_kitchen}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
