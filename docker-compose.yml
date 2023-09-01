@@ -1,7 +1,9 @@
-version: '3.1'
+version: '3.8'
 services:
   database:
     image: mysql
+    networks:
+      backend:
     restart: always
     ports:
       - "3306:3306"
@@ -17,7 +19,12 @@ services:
     environment:
       MYSQL_HOST: localhost
       MYSQL_PORT: 3306
+    networks:
+      backend:
     ports:
-      - "8080:8080"
+      - "80:8080"
     depends_on:
       - database
+
+networks:
+  backend:
