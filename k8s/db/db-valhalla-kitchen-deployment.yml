@@ -32,9 +32,3 @@ spec:
                 secretKeyRef:
                   name: db-valhalla-kitchen-secrets
                   key: POSTGRES_PASSWORD
-          volumeMounts:
-            - name: data
-              mountPath: /var/lib/postgresql/
-          volumes:
-            - name: data
-              emptyDir: { }
