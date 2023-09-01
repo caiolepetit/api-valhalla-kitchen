@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS produto(
-    id INT NOT NULL,
+    id SERIAL NOT NULL,
     nome VARCHAR(100) NOT NULL,
     preco DECIMAL,
     descricao VARCHAR(100) NOT NULL,
@@ -8,19 +8,23 @@ CREATE TABLE IF NOT EXISTS produto(
     PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS cliente(
+    cpf INTEGER NOT NULL,
+    email VARCHAR(50) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS pedido(
-    id INT NOT NULL,
-    cliente_id INT NOT NULL,
+    id SERIAL NOT NULL,
+    cliente_id INTEGER NOT NULL,
     status VARCHAR(15) NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS pedido_produto(
-    pedido_id INT NOT NULL,
-    produto_id INT NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS cliente(
-    cpf INT NOT NULL,
-    email VARCHAR(50) NOT NULL
+    pedido_id INTEGER NOT NULL,
+    FOREIGN KEY (pedido_id)
+        REFERENCES "pedido" (id),
+    produto_id INTEGER NOT NULL,
+    FOREIGN KEY (produto_id)
+        REFERENCES "produto" (id)
 );
