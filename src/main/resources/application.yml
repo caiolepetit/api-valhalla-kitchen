@@ -3,7 +3,7 @@ server:
     context-path: "/api"
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/valhalla_kitchen
+    url: jdbc:postgresql://database:5432/valhalla_kitchen
     username: postgres
     password: testeFiapNaoFacaIssoEmPrd
     driver-class-name: org.postgresql.Driver
