@@ -1,27 +1,32 @@
 version: '3.8'
 services:
   database:
-    image: mysql
+    image: postgres:latest
     networks:
-      backend:
-    restart: always
+      - backend
+    restart: unless-stopped
     ports:
-      - "3306:3306"
+      - "5432:5432"
+    user: postgres
     environment:
-      MYSQL_ROOT_PASSWORD: testeFiapNaoFacaIssoEmPrd
-      MYSQL_DATABASE: valhalla_kitchen
-      MYSQL_USER: fiapuser
-      MYSQL_PASSWORD: testeFiapNaoFacaIssoEmPrd
+      POSTGRES_PASSWORD: testeFiapNaoFacaIssoEmPrd
+      POSTGRES_DB: valhalla_kitchen
     volumes:
       - ./docker/01-create_db.sql:/docker-entrypoint-initdb.d/01-create_db.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   api:
     build: ./docker
     networks:
-      backend:
+      - backend
     ports:
       - "8080:8080"
     depends_on:
-      - database
+      database:
+        condition: service_healthy
 
 networks:
   backend:

@@ -24,6 +24,3 @@ spec:
             limits:
               memory: 200Mi
               cpu: 750m
-          env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: prd
