@@ -1,7 +1,9 @@
-version: '3.1'
+version: '3.8'
 services:
   database:
     image: mysql
+    networks:
+      backend:
     restart: always
     ports:
       - "3306:3306"
@@ -14,7 +16,12 @@ services:
       - ./docker/01-create_db.sql:/docker-entrypoint-initdb.d/01-create_db.sql
   api:
     build: ./docker
+    networks:
+      backend:
     ports:
       - "8080:8080"
     depends_on:
       - database
+
+networks:
+  backend:
