@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql-valhalla-kitchen-service
+  name: db-valhalla-kitchen-service
 spec:
   selector:
-    app: mysql-valhalla-kitchen
+    app: db-valhalla-kitchen
   ports:
     - protocol: TCP
-      port: 3306
-      targetPort: 3306
+      port: 5432
+      targetPort: 5432
       nodePort: 30006
   type: NodePort

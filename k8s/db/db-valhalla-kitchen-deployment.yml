@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-valhalla-kitchen-deployment
+spec:
+  selector:
+    matchLabels:
+      app: db-valhalla-kitchen
+  template:
+    metadata:
+      labels:
+        app: db-valhalla-kitchen
+    spec:
+      containers:
+        - name: db-valhalla-kitchen-container
+          image: postgres:latest
+          ports:
+            - containerPort: 5432
+              protocol: TCP
+          resources:
+            requests:
+              memory: 300Mi
+              cpu: 700m
+            limits:
+              memory: 500Mi
+              cpu: 900m
+          env:
+            - name: POSTGRES_DB
+              value: valhalla_kitchen
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-valhalla-kitchen-secrets
+                  key: POSTGRES_PASSWORD
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/
+          volumes:
+            - name: data
+              emptyDir: { }

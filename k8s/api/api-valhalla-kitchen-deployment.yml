@@ -18,10 +18,22 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: MYSQL_HOST
-              value: mysql-valhalla-kitchen
-            - name: MYSQL_PORT
-              value: '3306'
+            - name: POSTGRES_DB
+              value: valhalla_kitchen
+            - name: POSTGRES_HOST
+              value: db-valhalla-kitchen-service
+            - name: POSTGRES_PORT
+              value: '5432'
+            - name: POSTGRES_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: api-valhalla-kitchen-secrets
+                  key: POSTGRES_USERNAME      
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: api-valhalla-kitchen-secrets
+                  key: POSTGRES_PASSWORD
           resources:
             requests:
               memory: 120Mi
