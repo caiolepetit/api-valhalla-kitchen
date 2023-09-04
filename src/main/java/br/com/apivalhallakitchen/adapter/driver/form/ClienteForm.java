@@ -4,6 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class ClienteForm {
-    private Long cpf;
+    private String cpf;
     private String email;
 }

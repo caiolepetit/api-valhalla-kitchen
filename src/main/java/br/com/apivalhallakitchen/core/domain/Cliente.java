@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class Cliente {
 
-    private Long cpf;
+    private String cpf;
     private String email;
 
 }
