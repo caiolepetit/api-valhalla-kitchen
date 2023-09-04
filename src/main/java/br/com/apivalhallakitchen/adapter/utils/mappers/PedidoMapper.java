@@ -12,7 +12,7 @@ public class PedidoMapper {
     public static PedidoEntity pedidoToEntity(Pedido pedido) {
         return PedidoEntity.builder().clienteId(pedido.getClienteId())
                                         .status(pedido.getStatus())
-                                        .status(pedido.getStatusPagamento())
+                                        .statusPagamento(pedido.getStatusPagamento())
                                         .id(pedido.getId())
                                         .produtos(pedido.getProdutos()).build();
     }
