@@ -14,4 +14,6 @@ public class Pedido {
     @Builder.Default
     private String status = "Novo";
     private List<Long> produtos;
+    @Builder.Default
+    private String statusPagamento = "Aguardando";
 }

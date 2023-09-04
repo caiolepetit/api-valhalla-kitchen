@@ -1,5 +1,6 @@
 package br.com.apivalhallakitchen.adapter.driver;
 
+import br.com.apivalhallakitchen.adapter.driver.form.MLTransacaoForm;
 import br.com.apivalhallakitchen.adapter.driver.form.PedidoForm;
 import br.com.apivalhallakitchen.core.applications.services.PedidoService;
 import br.com.apivalhallakitchen.core.domain.Pedido;
@@ -36,13 +37,12 @@ public class PedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<String> criarPedido(@RequestBody PedidoForm pedidoForm, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<Pedido> criarPedido(@RequestBody PedidoForm pedidoForm, UriComponentsBuilder uriBuilder) {
         Pedido pedido = pedidoService.criarPedido(pedidoForm);
 
         String novaUri = uriBuilder.path("/{id}").buildAndExpand(pedido.getId()).toUriString();
 
-        return ResponseEntity.created(UriComponentsBuilder.fromUriString(novaUri).build().toUri())
-                .body("Pedido criado com sucesso!");
+        return ResponseEntity.created(UriComponentsBuilder.fromUriString(novaUri).build().toUri()).body(pedido);
     }
 
     @PatchMapping("/{id}")
@@ -50,4 +50,18 @@ public class PedidoController {
         return pedidoService.alterarStatusPedido(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/{id}/pagamento")
+    public ResponseEntity<String> consultarPagamento(@PathVariable Long id) {
+        return ResponseEntity.ok(pedidoService.consultarStatusPagamento(id));
+    }
+
+    @GetMapping("/fila")
+    public ResponseEntity<List<Pedido>> buscarFilaPedido() {
+        return ResponseEntity.ok(pedidoService.consultarFila());
+    }
+
+    @PostMapping("/webhook/pagamento")
+    public void processarTransacaoPagamentoML(@RequestBody MLTransacaoForm mlTransacaoForm) {
+        pedidoService.processarTransacaoPagamentoML(mlTransacaoForm);
+    }
 }

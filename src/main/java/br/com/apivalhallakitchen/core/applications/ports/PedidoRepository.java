@@ -11,4 +11,7 @@ public interface PedidoRepository {
     Optional<Pedido> buscarPedidoPorId(Long id);
 
     Pedido salvarPedido(Pedido pedido);
+
+    List<Pedido> buscarFilaPedidos(List<String> status);
+
 }

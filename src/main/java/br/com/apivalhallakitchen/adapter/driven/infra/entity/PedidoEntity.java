@@ -25,11 +25,15 @@ public class PedidoEntity {
 
     @Column(name = "status")
     @Builder.Default
-    private String status = "Novo";
+    private String status = "Recebido";
 
     @ElementCollection
     @CollectionTable(name = "pedido_produto",
             joinColumns = @JoinColumn(name = "pedido_id"))
     @Column(name = "produto_id")
     private List<Long> produtos;
+
+    @Column(name = "status_pagamento")
+    @Builder.Default
+    private String statusPagamento = "Aguardando";
 }

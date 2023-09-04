@@ -12,6 +12,7 @@ public class PedidoMapper {
     public static PedidoEntity pedidoToEntity(Pedido pedido) {
         return PedidoEntity.builder().clienteId(pedido.getClienteId())
                                         .status(pedido.getStatus())
+                                        .status(pedido.getStatusPagamento())
                                         .id(pedido.getId())
                                         .produtos(pedido.getProdutos()).build();
     }
@@ -20,6 +21,7 @@ public class PedidoMapper {
         return Pedido.builder().id(pedidoEntity.getId())
                                 .clienteId(pedidoEntity.getClienteId())
                                 .status(pedidoEntity.getStatus())
+                                .statusPagamento(pedidoEntity.getStatusPagamento())
                                 .produtos(pedidoEntity.getProdutos()).build();
     }
 
