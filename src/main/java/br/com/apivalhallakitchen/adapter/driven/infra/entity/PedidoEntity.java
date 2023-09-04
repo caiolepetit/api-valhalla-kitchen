@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "pedido")
@@ -22,7 +23,7 @@ public class PedidoEntity {
     private Long id;
 
     @Column(name = "clienteId")
-    private Long clienteId;
+    private UUID clienteId;
 
     @Column(name = "status")
     @Builder.Default

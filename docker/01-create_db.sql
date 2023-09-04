@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS cliente(
 
 CREATE TABLE IF NOT EXISTS pedido(
     id SERIAL NOT NULL,
-    cliente_id INTEGER NOT NULL,
+    cliente_id UUID NOT NULL,
     status VARCHAR(15) NOT NULL,
     PRIMARY KEY (id)
 );
