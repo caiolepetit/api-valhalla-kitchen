@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS produto(
 );
 
 CREATE TABLE IF NOT EXISTS cliente(
-    cpf INTEGER NOT NULL,
+    id UUID PRIMARY KEY,
+    cpf VARCHAR(11) NOT NULL,
     email VARCHAR(50) NOT NULL
 );
 
