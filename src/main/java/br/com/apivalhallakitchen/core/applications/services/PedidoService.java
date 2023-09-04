@@ -54,10 +54,10 @@ public class PedidoService {
 
     private Pedido atualizarParaProximoStatus(Pedido pedido, String status) {
         switch (status) {
-            case "Recebido" -> pedido.setStatus("Recebido");
+            case "Recebido" -> pedido.setStatus("Em preparação");
             case "Em preparação" -> pedido.setStatus("Pronto");
             case "Pronto" -> pedido.setStatus("Retirado");
-            case "Finalizado" -> pedido.setStatus("Finalizado");
+            case "Retirado" -> pedido.setStatus("Finalizado");
             default -> throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
         }
         return pedido;
