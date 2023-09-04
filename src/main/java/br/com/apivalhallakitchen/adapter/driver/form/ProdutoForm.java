@@ -10,4 +10,5 @@ public class ProdutoForm {
     private BigDecimal preco;
     private String descricao;
     private String categoria;
+    private String status;
 }

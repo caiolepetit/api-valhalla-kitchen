@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
@@ -14,9 +15,10 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProdutoEntity {
+@SequenceGenerator(name = "produto_generator", sequenceName = "produto_id_seq", allocationSize = 1)
+public class ProdutoEntity implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "produto_generator")
     @Column(name = "id")
     private Long id;
 

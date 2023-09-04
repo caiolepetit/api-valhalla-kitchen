@@ -14,7 +14,8 @@ public class ProdutoMapper {
         return ProdutoEntity.builder().nome(produto.getNome())
                                         .descricao(produto.getDescricao())
                                         .categoria(produto.getCategoria())
-                                        .preco(produto.getPreco()).build();
+                                        .preco(produto.getPreco())
+                .status(produto.getStatus()).build();
     }
 
     public static Produto produtoEntityToProduto(ProdutoEntity produtoEntity) {
@@ -29,7 +30,8 @@ public class ProdutoMapper {
         return Produto.builder().categoria(produtoForm.getCategoria())
                                     .descricao(produtoForm.getDescricao())
                                     .preco(produtoForm.getPreco())
-                                    .nome(produtoForm.getNome()).build();
+                                    .nome(produtoForm.getNome())
+                                    .status(produtoForm.getStatus()==null?"A":produtoForm.getStatus()).build();
     }
 
 }

@@ -1,13 +1,12 @@
 package br.com.apivalhallakitchen.adapter.driven.infra.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "cliente")
@@ -17,8 +16,12 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ClienteEntity {
     @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
     @Column(name = "cpf")
-    private Long cpf;
+    private String cpf;
 
     @Column(name = "email")
     private String email;

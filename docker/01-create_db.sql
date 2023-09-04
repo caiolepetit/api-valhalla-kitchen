@@ -9,13 +9,14 @@ CREATE TABLE IF NOT EXISTS produto(
 );
 
 CREATE TABLE IF NOT EXISTS cliente(
-    cpf INTEGER NOT NULL,
+    id UUID PRIMARY KEY,
+    cpf VARCHAR(11) NOT NULL,
     email VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS pedido(
     id SERIAL NOT NULL,
-    cliente_id INTEGER NOT NULL,
+    cliente_id UUID NOT NULL,
     status VARCHAR(15) NOT NULL,
     PRIMARY KEY (id)
 );
