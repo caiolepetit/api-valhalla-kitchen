@@ -14,7 +14,7 @@ public class ClienteMapper {
     }
 
     public static Cliente clienteEntityToCliente(ClienteEntity clienteEntity) {
-        return Cliente.builder().email(clienteEntity.getEmail()).cpf(clienteEntity.getCpf()).build();
+        return Cliente.builder().id(clienteEntity.getId()).email(clienteEntity.getEmail()).cpf(clienteEntity.getCpf()).build();
     }
 
     public static Cliente clienteFormToCliente(ClienteForm clienteForm) {
