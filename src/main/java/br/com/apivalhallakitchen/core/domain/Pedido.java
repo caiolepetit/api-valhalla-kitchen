@@ -13,7 +13,7 @@ public class Pedido {
     private UUID clienteId;
 
     @Builder.Default
-    private String status = "Novo";
+    private String status = "Recebido";
     private List<Long> produtos;
     @Builder.Default
     private String statusPagamento = "Aguardando";
