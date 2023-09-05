@@ -1,0 +1,12 @@
+FROM postgres:latest
+
+EXPOSE 5432
+
+ENV POSTGRES_DB: valhalla_kitchen
+ENV POSTGRES_HOST: database
+ENV POSTGRES_PORT: 5432
+ENV POSTGRES_USERNAME: postgres
+ENV POSTGRES_PASSWORD: testeFiapNaoFacaIssoEmPrd
+
+COPY 01-create_db.sql /docker-entrypoint-initdb.d/
+
