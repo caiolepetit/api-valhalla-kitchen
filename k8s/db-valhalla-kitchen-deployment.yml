@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: db-valhalla-kitchen-container
-          image: postgres:latest
+          image: renanfee/db-valhalla-kitchen
           ports:
             - containerPort: 5432
               protocol: TCP
