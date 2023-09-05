@@ -1,6 +1,6 @@
 # Valhalla Kitchen
 
-Para executar o Kubenets :
+Para a fase 2, executar os seguintes comandas :
 
 1-	Clonar o repositório utilizando o comando:
 
